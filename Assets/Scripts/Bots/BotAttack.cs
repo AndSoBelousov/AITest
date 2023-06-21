@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,8 +11,10 @@ public class BotAttack : BotNavigation
 
     [SerializeField]
     private string _deltaString ;
+    [SerializeField]
+    private int random;
 
-    private UnitCharacteristics _char;
+
     [SerializeField]
     private Collider _collider;
 
@@ -24,12 +27,14 @@ public class BotAttack : BotNavigation
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
-        _char = GetComponentInParent<UnitCharacteristics>(); //todo 
-    }
+        _characteristics = GetComponent<UnitCharacteristics>();
 
-    private void Update()
+        StartCoroutine(QuickAttackChance());
+    }
+    
+    private void FixedUpdate()
     {
-        QuickAttackChance();
+        //QuickAttackChance();
         Attack(_deltaString);
     }
     private void Attack(string result)
@@ -37,21 +42,31 @@ public class BotAttack : BotNavigation
         if (_currentTarget != null && _agent.remainingDistance < _agent.stoppingDistance && _agent.remainingDistance !=0)
         {
             _animator.SetTrigger(result);
+
+            
         }
+    }
+    private IEnumerator QuickAttackChance()
+    {
+        while (true) 
+        {
+            random = Random.Range(0, 100);
+            if (random <= _characteristics.FastAttackChance)
+            {
+                _deltaString = _fast;
+                _characteristics.ActualDamage = _characteristics.DamageFastAttack;
+            }
+            else
+            {
+                _deltaString = _strong;
+                _characteristics.ActualDamage = _characteristics.DamageStrongAttack;
+            }
+            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        
     }
 
-    private void QuickAttackChance()
-    {
-        int random = Random.Range(0, 100);
-        if (random <= _char.FastAttackChance)//todo неправильно работает
-        {
-            _deltaString = _fast;
-        }
-        else 
-        {
-            _deltaString = _strong;
-        }
-    }
+    
 
     private void EnableSwordCollider(int isActivity)
     {

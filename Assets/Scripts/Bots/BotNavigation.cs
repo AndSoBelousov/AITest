@@ -46,7 +46,7 @@ public class BotNavigation : MonoBehaviour
     {
         if (_currentTarget != null && _agent.velocity.magnitude >= 0.1)
         {
-            _agent.transform.LookAt(_currentTarget.transform);
+            _agent.transform.LookAt(_currentTarget.transform) ;
         }
     }
     private void OnCollisionEnter(Collision other)

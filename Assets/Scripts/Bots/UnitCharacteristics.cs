@@ -8,7 +8,7 @@ public class UnitCharacteristics : MonoBehaviour
     [SerializeField]
     private int _unitHealth = 100;
     private int _damageFastAttack = 20;
-    private int _damageStrongAttack = 50;
+    private int _damageStrongAttack = 45;
     private int _actualDamage;
     private float _unitSpeed = 5;
 
