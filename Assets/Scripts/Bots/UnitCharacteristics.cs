@@ -19,6 +19,7 @@ public class UnitCharacteristics : MonoBehaviour
 
 
     private int _fastAttackChance = 50;
+    private bool _attackAnimation = false;
 
     public int UnitHealth
     { get { return _unitHealth; } set { _unitHealth = value; } }
@@ -40,6 +41,8 @@ public class UnitCharacteristics : MonoBehaviour
 
     public int FastAttackChance
     { get { return _fastAttackChance; } set { _fastAttackChance = value; } }
+    public bool AttackAnimation
+    { get { return _attackAnimation; } set { _attackAnimation = value; } }
 
     public TeamColor Color
     { get { return _teamColor; } }

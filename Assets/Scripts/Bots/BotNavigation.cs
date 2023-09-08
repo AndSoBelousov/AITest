@@ -14,7 +14,7 @@ public class BotNavigation : MonoBehaviour
 
     private void Awake()
     {
-        _characteristics = new();
+        _characteristics = new UnitCharacteristics();
         
     }
     private void Start()

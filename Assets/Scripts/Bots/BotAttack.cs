@@ -29,26 +29,18 @@ public class BotAttack : BotNavigation
         _agent = GetComponent<NavMeshAgent>();
         _characteristics = GetComponent<UnitCharacteristics>();
 
-        StartCoroutine(QuickAttackChance());
+        //StartCoroutine(QuickAttackChance());
     }
     
     private void FixedUpdate()
     {
         //QuickAttackChance();
-        Attack(_deltaString);
+        Attack();
     }
-    private void Attack(string result)
+    private void Attack()
     {
-        if (_currentTarget != null && _agent.remainingDistance < _agent.stoppingDistance && _agent.remainingDistance !=0)
-        {
-            _animator.SetTrigger(result);
-
-            
-        }
-    }
-    private IEnumerator QuickAttackChance()
-    {
-        while (true) 
+        if (_currentTarget != null && _agent.remainingDistance < _agent.stoppingDistance
+            && _agent.remainingDistance !=0 )
         {
             random = Random.Range(0, 100);
             if (random <= _characteristics.FastAttackChance)
@@ -61,10 +53,29 @@ public class BotAttack : BotNavigation
                 _deltaString = _strong;
                 _characteristics.ActualDamage = _characteristics.DamageStrongAttack;
             }
-            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+
+            _animator.SetTrigger(_deltaString);
         }
-        
     }
+    //private IEnumerator QuickAttackChance()
+    //{
+    //    while (true) 
+    //    {
+    //        random = Random.Range(0, 100);
+    //        if (random <= _characteristics.FastAttackChance)
+    //        {
+    //            _deltaString = _fast;
+    //            _characteristics.ActualDamage = _characteristics.DamageFastAttack;
+    //        }
+    //        else
+    //        {
+    //            _deltaString = _strong;
+    //            _characteristics.ActualDamage = _characteristics.DamageStrongAttack;
+    //        }
+    //        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+    //    }
+        
+    //}
 
     
 

@@ -9,7 +9,9 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _moveVector = Vector3.zero;
     private Rigidbody _rb;
     private float _moveSpeed = 10f;
-    
+
+
+
     private Camera _camera;
 
     private void Awake()
@@ -28,6 +30,7 @@ public class CameraMovement : MonoBehaviour
         _customInput.Enable();
         _customInput.CamActionMap.Movement.performed += OnMovementPerformed;
         _customInput.CamActionMap.Movement.canceled += OnMovementCancelled;
+        //_customInput.CamActionMap.Mouse.performed += RotateCharacter;
     }
 
     private void OnDisable()
@@ -35,6 +38,7 @@ public class CameraMovement : MonoBehaviour
         _customInput.Disable();
         _customInput.CamActionMap.Movement.performed -= OnMovementPerformed;
         _customInput.CamActionMap.Movement.canceled -= OnMovementCancelled;
+        //InputSystem.onBeforeUpdate -= RotateCharacter;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext context)
@@ -46,4 +50,15 @@ public class CameraMovement : MonoBehaviour
     {
         _moveVector = Vector3.zero;
     }
+
+    //private void RotateCharacter(InputAction.CallbackContext context)
+    //{
+    //    if (context)
+    //    {
+    //        Vector2 mouseDelta = Mouse.current.delta.ReadValue() * Time.deltaTime;
+    //        Vector3 rotation = new Vector3(-mouseDelta.y, mouseDelta.x, 0f);
+    //        transform.Rotate(rotation);
+    //    }
+    //}
+
 }

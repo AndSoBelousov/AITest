@@ -35,6 +35,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""48c1160f-3127-4267-a439-c35337dcea88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57ee66d4-7716-4ce4-b11b-c3886a70ca7f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -123,6 +143,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         // CamActionMap
         m_CamActionMap = asset.FindActionMap("CamActionMap", throwIfNotFound: true);
         m_CamActionMap_Movement = m_CamActionMap.FindAction("Movement", throwIfNotFound: true);
+        m_CamActionMap_Mouse = m_CamActionMap.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,11 +206,13 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_CamActionMap;
     private List<ICamActionMapActions> m_CamActionMapActionsCallbackInterfaces = new List<ICamActionMapActions>();
     private readonly InputAction m_CamActionMap_Movement;
+    private readonly InputAction m_CamActionMap_Mouse;
     public struct CamActionMapActions
     {
         private @CustomInput m_Wrapper;
         public CamActionMapActions(@CustomInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_CamActionMap_Movement;
+        public InputAction @Mouse => m_Wrapper.m_CamActionMap_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_CamActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -202,6 +225,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Mouse.started += instance.OnMouse;
+            @Mouse.performed += instance.OnMouse;
+            @Mouse.canceled += instance.OnMouse;
         }
 
         private void UnregisterCallbacks(ICamActionMapActions instance)
@@ -209,6 +235,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Mouse.started -= instance.OnMouse;
+            @Mouse.performed -= instance.OnMouse;
+            @Mouse.canceled -= instance.OnMouse;
         }
 
         public void RemoveCallbacks(ICamActionMapActions instance)
@@ -229,5 +258,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     public interface ICamActionMapActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }
