@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class BotNavigation : MonoBehaviour
 {
@@ -44,10 +45,17 @@ public class BotNavigation : MonoBehaviour
 
     private void TurningTowardsTheEnemy()
     {
-        if (_currentTarget != null && _agent.velocity.magnitude >= 0.1)
+        if (_currentTarget != null)
         {
-            _agent.transform.LookAt(_currentTarget.transform) ;
+            Vector3 targetDirection = (_currentTarget.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
+
+        //if (_currentTarget != null && _agent.velocity.magnitude <= 0.1)
+        //{
+        //    _agent.transform.LookAt(_currentTarget.transform);
+        //}
     }
     private void OnCollisionEnter(Collision other)
     {

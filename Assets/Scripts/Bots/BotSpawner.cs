@@ -31,7 +31,10 @@ public class BotSpawner : MonoBehaviour
 
     private void Update()
     {
-       
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SpawnBots();
+        }
     }
 
     private void ColorDeterminat(TeamColor teamColor)

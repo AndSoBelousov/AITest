@@ -30,10 +30,10 @@ public class UnitCondition : BotNavigation
         }
     }
 
-    private void DistroyGO(string result)
-    {
-        if (result == "die") Destroy(gameObject);
-    }
+    //private void DistroyGO(string result)
+    //{
+    //    if (result == "die") Destroy(gameObject);
+    //}
 
     private void MovementAnimation(float speed)
     {

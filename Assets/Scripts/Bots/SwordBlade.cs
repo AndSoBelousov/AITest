@@ -4,31 +4,23 @@ using UnityEngine;
 
 public class SwordBlade : MonoBehaviour
 {
-    //private Animator _animator;
-    private UnitCharacteristics _thisChar;
+    
 
-    //private void Start()
-    //{
-    //    _animator = GetComponent<Animator>();   
-    //}
+    private void Start()
+    {
+        
+    }
 
     private void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject.layer != this.gameObject.layer)
         {
-            UnitCharacteristics enemyChar = other.GetComponent<UnitCharacteristics>();
-            if (enemyChar != null && _thisChar != null )
-            { 
-                enemyChar.UnitHealth -= _thisChar.ActualDamage; 
+            UnitCharacteristics characteristics = other.GetComponent<UnitCharacteristics>();
+            if (characteristics != null)
+            {
+            characteristics.UnitHealth -= 20;//todo 
             }
-            
-            
+            Debug.Log("Нанесен урон");
         }
     }
-
-    //private void CheckActualDamage()
-    //{
-    //    if(_animator.na)
-    //}
-
 }
