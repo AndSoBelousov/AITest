@@ -2044,6 +2044,8 @@ GameObject:
   - component: {fileID: 532899569}
   - component: {fileID: 532899568}
   - component: {fileID: 532899572}
+  - component: {fileID: 532899573}
+  - component: {fileID: 532899574}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2117,14 +2119,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532899567}
-  m_LocalRotation: {x: -0.37952757, y: 0.12843168, z: -0.05327744, w: -0.91467243}
+  m_LocalRotation: {x: 0.3719757, y: -0.11137861, z: 0.044997767, w: 0.920437}
   m_LocalPosition: {x: 2.1, y: 6.96, z: 18.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.01, y: -13.8, z: -0.002}
 --- !u!114 &532899572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2141,6 +2143,46 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &532899573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532899567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a52ae5e1eba29084187448e8b67bd6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 5
+--- !u!54 &532899574
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532899567}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &554388839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10013,7 +10055,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7429358445627188927, guid: 1d3a8a0be4d85234eb2888eb3ed46e4b, type: 3}
       propertyPath: _unitHealth
-      value: 1000
+      value: 178
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223203450565099340, guid: 1d3a8a0be4d85234eb2888eb3ed46e4b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8223203450565099341, guid: 1d3a8a0be4d85234eb2888eb3ed46e4b, type: 3}
       propertyPath: m_StoppingDistance

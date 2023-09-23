@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class BotNavigation : MonoBehaviour
     protected NavMeshAgent _agent;
     protected Animator _animator;
     protected UnitCharacteristics _characteristics;
+    protected SphereCollider _detectCollider;
 
     private Transform _initialTarget;
     protected GameObject _currentTarget;
@@ -23,6 +25,8 @@ public class BotNavigation : MonoBehaviour
         _initialTarget = FindObjectOfType<InitialTarget>().transform;
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
+        _detectCollider = GetComponent<SphereCollider>();
+
 
         _agent.SetDestination(_initialTarget.position);
         UnitSpeed(_characteristics.UnitSpeed);
@@ -31,10 +35,22 @@ public class BotNavigation : MonoBehaviour
     private void FixedUpdate()
     {
         Aggression();
-        
+        CheckTheTargetsPulse();
         TurningTowardsTheEnemy();
         
     }
+
+    private void CheckTheTargetsPulse()
+    {   //если есть тукущая цель и он мертв 
+        if (_currentTarget != null) 
+        {
+            if(_currentTarget.GetComponent<UnitCharacteristics>().UnitDead == true)
+            {
+                _currentTarget = null;
+            }
+        }    
+    }
+
     private void Aggression()
     { 
         if (_currentTarget != null)
@@ -69,6 +85,7 @@ public class BotNavigation : MonoBehaviour
             other.gameObject.layer != this.gameObject.layer)
         {
             _currentTarget = other.gameObject;
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
     

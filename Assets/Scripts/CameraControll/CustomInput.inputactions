@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Mouse",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "48c1160f-3127-4267-a439-c35337dcea88",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -104,8 +104,8 @@
                 },
                 {
                     "name": "",
-                    "id": "57ee66d4-7716-4ce4-b11b-c3886a70ca7f",
-                    "path": "<Mouse>/rightButton",
+                    "id": "ae0c29dc-19f6-475e-9ae5-7d1528fec5c4",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
