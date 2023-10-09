@@ -31,14 +31,16 @@ public class BotNavigation : MonoBehaviour
         _agent.SetDestination(_initialTarget.position);
         UnitSpeed(_characteristics.UnitSpeed);
     }
-    
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         Aggression();
         CheckTheTargetsPulse();
-        TurningTowardsTheEnemy();
-        
+        TurningTowardsTheEnemy(); 
     }
+
+    //private void FixedUpdate()
+    //{
+    //}
 
     private void CheckTheTargetsPulse()
     {   //если есть тукущая цель и он мертв 
@@ -73,22 +75,37 @@ public class BotNavigation : MonoBehaviour
         //    _agent.transform.LookAt(_currentTarget.transform);
         //}
     }
-    private void OnCollisionEnter(Collision other)
-    {
-        
-    }
-    private void OnTriggerEnter(Collider other)
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    //если нет актуальной цели, если это не часть карты и если это не твой союзник
+    //    if (_currentTarget == null &&
+    //        other.gameObject.layer != 9 &&
+    //        other.gameObject.layer != this.gameObject.layer)
+    //    {//записываем цель в переменную и отключаем коллайдер
+    //        _currentTarget = other.gameObject;
+    //        this.gameObject.GetComponent<SphereCollider>().enabled = false;
+    //    }//если нет цели и коллайдер выключен - включаем его 
+    //    else if (_currentTarget == null && this.gameObject.GetComponent<SphereCollider>().enabled == false)
+    //    {
+    //        this.gameObject.GetComponent<SphereCollider>().enabled = true;
+    //    }
+    //}
+    private void OnTriggerStay(Collider other)
     {
         //если нет актуальной цели, если это не часть карты и если это не твой союзник
         if (_currentTarget == null &&
             other.gameObject.layer != 9 &&
             other.gameObject.layer != this.gameObject.layer)
-        {
+        {//записываем цель в переменную и отключаем коллайдер
             _currentTarget = other.gameObject;
-            this.gameObject.GetComponent<SphereCollider>().enabled = false;
-        }
+            //this.gameObject.GetComponent<SphereCollider>().enabled = false;
+        }//если нет цели и коллайдер выключен - включаем его 
+        //else if (_currentTarget == null && this.gameObject.GetComponent<SphereCollider>().enabled == false)
+        //{
+        //    this.gameObject.GetComponent<SphereCollider>().enabled = true;
+        //}
     }
-    
+
     private void UnitSpeed(float speed)
     {
         _agent.speed = speed;

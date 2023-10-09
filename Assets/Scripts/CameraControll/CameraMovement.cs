@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +11,11 @@ public class CameraMovement : MonoBehaviour
     private Rigidbody _rb;
     private float _moveSpeed = 10f;
 
-    public float _rotationSpeed = 5.0f; // Скорость вращения камеры
-
+    public float _sensitivity = 5.0f; // Скорость вращения камеры
     private bool _isRotating = false; // Флаг, указывающий, включено ли вращение
     private Vector2 _mouseDelta; // Дельта позиции мыши
-
-
+    public float _maxYAngle = 80.0f;  // Максимальный угол наклона вверх и вниз
+    private float rotationX = 0;
 
     private Camera _camera;
 
@@ -62,10 +62,12 @@ public class CameraMovement : MonoBehaviour
     }
     private void OnMouseRotate(InputAction.CallbackContext context)
     {
+        _mouseDelta = context.ReadValue<Vector2>();
+        
+
         if (Mouse.current.rightButton.isPressed)
         {
             _isRotating = true;
-            _mouseDelta = context.ReadValue<Vector2>();
         }
     }
 
@@ -79,16 +81,15 @@ public class CameraMovement : MonoBehaviour
         // Если включено вращение
         if (_isRotating)
         {
-            // Вычисляем угол поворота камеры на основе дельты позиции мыши
-            float rotationX = _mouseDelta.x * _rotationSpeed;
-            float rotationY = -_mouseDelta.y * _rotationSpeed;
 
-            // Вращаем камеру вокруг своих осей, исключая вращение по оси Z
-            //transform.rotation *= Quaternion.Euler(Vector3.up * rotationX);
-            //transform.rotation *= Quaternion.Euler(Vector3.right * rotationY);
-            // Вращаем камеру вокруг своих осей
-            //transform.Rotate(Vector3.up * rotationX);
-            transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+            transform.Rotate(Vector3.up * _mouseDelta.x * _sensitivity);
+
+            // Вычисляем угол наклона камеры по вертикали
+            rotationX -= _mouseDelta.y * _sensitivity;
+            rotationX = Mathf.Clamp(rotationX, -_maxYAngle, _maxYAngle);
+
+            // Поворачиваем камеру по вертикали вокруг оси X
+            transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         }
     }
 }

@@ -29,13 +29,13 @@ public class BotSpawner : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnBots();
-        }
-    }
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        SpawnBots();
+    //    }
+    //}
 
     private void ColorDeterminat(TeamColor teamColor)
     {
@@ -53,8 +53,8 @@ public class BotSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnBots()
+    public void SpawnBots()
     {
-        _bots.Add(Instantiate(_prefabBot));
+        _bots.Add(Instantiate(_prefabBot, transform.position,transform.rotation));
     }
 }

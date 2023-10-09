@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SwordBlade : MonoBehaviour
 {
-    
+    private UnitCharacteristics _unitChar;
 
     private void Start()
     {
-        
+        _unitChar = GetComponentInParent<UnitCharacteristics>();
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -18,7 +18,7 @@ public class SwordBlade : MonoBehaviour
             UnitCharacteristics characteristics = other.GetComponent<UnitCharacteristics>();
             if (characteristics != null)
             {
-            characteristics.UnitHealth -= 20;//todo 
+                characteristics.UnitHealth -= _unitChar.ActualDamage;
             }
             Debug.Log("Нанесен урон");
         }

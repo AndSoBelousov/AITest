@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class UnitCharacteristics : MonoBehaviour
 {
-    [SerializeField, Range (50, 1000)]
-    private int _unitHealth = 100;
-    private int _damageFastAttack = 20;
-    private int _damageStrongAttack = 50;
+    [SerializeField, Range (0, 1000)]
+    private int _unitHealth = 200;
+    private int _damageFastAttack = 15;
+    private int _damageStrongAttack = 40;
     [SerializeField]
     private int _actualDamage;
     [SerializeField]

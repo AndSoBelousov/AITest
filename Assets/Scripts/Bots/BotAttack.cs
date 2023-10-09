@@ -39,9 +39,7 @@ public class BotAttack : BotNavigation
 
                 nextAttackTime = Time.time + _char.AttackCooldown;
             }
-        }
-
-         
+        }        
     }
    
     private void QuickAttackChance() // ¬ыбираем тип атаки на основе веро€тности
@@ -50,11 +48,13 @@ public class BotAttack : BotNavigation
         
         if (random <= _char.FastAttackChance)
         {
-            _animator.SetTrigger(_fast); 
+            _animator.SetTrigger(_fast);
+            _char.ActualDamage = _char.DamageFastAttack;
         }
         else
         {
             _animator.SetTrigger(_strong);
+            _char.ActualDamage = _char.DamageStrongAttack;
         }
     }
 
