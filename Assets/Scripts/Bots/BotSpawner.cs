@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class BotSpawner : MonoBehaviour
 {
-    private Transform _entityContainer;
-    private BotSpawnPoint _botSpawnPoint;
+    
 
     [SerializeField]
     private TeamColor _teamColor;
@@ -16,11 +15,7 @@ public class BotSpawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> _bots;
 
-    private void Awake()
-    {
-        //_entityContainer = FindObjectOfType<EntityContainer>().transform;
-        //_botSpawnPoint = FindObjectOfType<BotSpawnPoint>();
-    }
+   
 
     private void Start()
     {
@@ -28,14 +23,6 @@ public class BotSpawner : MonoBehaviour
         _bots = new();
 
     }
-
-    //private void Update()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        SpawnBots();
-    //    }
-    //}
 
     private void ColorDeterminat(TeamColor teamColor)
     {

@@ -24,8 +24,6 @@ public class HealthBar : MonoBehaviour
         _unitCharacteristics = GetComponent<UnitCharacteristics>();
 
 
-        //_maxHealth = _unitCharacteristics.UnitHealth;
-
         if (_unitCharacteristics != null)
         {
             _maxHealth = _unitCharacteristics.UnitHealth;
@@ -33,11 +31,10 @@ public class HealthBar : MonoBehaviour
         }
         else
         {
-            Debug.Log("ошибка");
+            Debug.Log("ошибка _unitCharacteristics == null");
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         AlignCamera();
@@ -47,7 +44,6 @@ public class HealthBar : MonoBehaviour
     private void CulculateHealth()
     {
         var delta = _unitCharacteristics.UnitHealth / _maxHealth;
-        Debug.Log(delta);
         if(delta <= 0 )
         {
             _healthBar.transform.localScale = new Vector3(0, 0.3f, 0.2f);

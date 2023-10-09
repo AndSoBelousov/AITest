@@ -38,9 +38,6 @@ public class BotNavigation : MonoBehaviour
         TurningTowardsTheEnemy(); 
     }
 
-    //private void FixedUpdate()
-    //{
-    //}
 
     private void CheckTheTargetsPulse()
     {   //если есть тукущая цель и он мертв 
@@ -69,27 +66,8 @@ public class BotNavigation : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
-
-        //if (_currentTarget != null && _agent.velocity.magnitude <= 0.1)
-        //{
-        //    _agent.transform.LookAt(_currentTarget.transform);
-        //}
     }
-    //private void OnCollisionEnter(Collision other)
-    //{
-    //    //если нет актуальной цели, если это не часть карты и если это не твой союзник
-    //    if (_currentTarget == null &&
-    //        other.gameObject.layer != 9 &&
-    //        other.gameObject.layer != this.gameObject.layer)
-    //    {//записываем цель в переменную и отключаем коллайдер
-    //        _currentTarget = other.gameObject;
-    //        this.gameObject.GetComponent<SphereCollider>().enabled = false;
-    //    }//если нет цели и коллайдер выключен - включаем его 
-    //    else if (_currentTarget == null && this.gameObject.GetComponent<SphereCollider>().enabled == false)
-    //    {
-    //        this.gameObject.GetComponent<SphereCollider>().enabled = true;
-    //    }
-    //}
+    
     private void OnTriggerStay(Collider other)
     {
         //если нет актуальной цели, если это не часть карты и если это не твой союзник
@@ -98,12 +76,7 @@ public class BotNavigation : MonoBehaviour
             other.gameObject.layer != this.gameObject.layer)
         {//записываем цель в переменную и отключаем коллайдер
             _currentTarget = other.gameObject;
-            //this.gameObject.GetComponent<SphereCollider>().enabled = false;
-        }//если нет цели и коллайдер выключен - включаем его 
-        //else if (_currentTarget == null && this.gameObject.GetComponent<SphereCollider>().enabled == false)
-        //{
-        //    this.gameObject.GetComponent<SphereCollider>().enabled = true;
-        //}
+        }
     }
 
     private void UnitSpeed(float speed)

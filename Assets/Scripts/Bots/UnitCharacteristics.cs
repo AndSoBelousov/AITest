@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class UnitCharacteristics : MonoBehaviour
 {
-    [SerializeField, Range (0, 1000)]
-    private int _unitHealth = 200;
+    [SerializeField, Range (0, 500)]
+    private int _unitHealth = 250;
     private int _damageFastAttack = 15;
     private int _damageStrongAttack = 40;
     [SerializeField]
@@ -16,13 +16,12 @@ public class UnitCharacteristics : MonoBehaviour
     [SerializeField, Range(1, 100)]
     private int _fastAttackChance = 50;
     [SerializeField, Range(2f, 5f)]
-    private float _attackCooldown = 2f; // Время между атаками
+    private float _attackCooldown = 2f; 
 
     private bool _unitDead = false;
     [SerializeField]
     private TeamColor _teamColor;
 
-    //SerializeField, Range(0, 100), Tooltip("Шанс быстрой атаки по отношению к сильной")]
 
     public int UnitHealth
     { get { return _unitHealth; } set { _unitHealth = value; } }
