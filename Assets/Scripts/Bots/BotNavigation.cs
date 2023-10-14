@@ -15,11 +15,6 @@ public class BotNavigation : MonoBehaviour
     private Transform _initialTarget;
     protected GameObject _currentTarget;
 
-    private void Awake()
-    {
-        _characteristics = new UnitCharacteristics();
-        
-    }
     private void Start()
     {
         _initialTarget = FindObjectOfType<InitialTarget>().transform;

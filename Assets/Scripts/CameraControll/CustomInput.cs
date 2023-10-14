@@ -136,6 +136,34 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UIPanelClick"",
+            ""id"": ""3fe24ad8-3d60-4a00-a5b1-8e645f0adea5"",
+            ""actions"": [
+                {
+                    ""name"": ""Pointer"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6d34797-c6ed-483d-8281-71b4a990baa3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""eb63f669-b48b-4c7d-afe0-da3dda6519ec"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -144,6 +172,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_CamActionMap = asset.FindActionMap("CamActionMap", throwIfNotFound: true);
         m_CamActionMap_Movement = m_CamActionMap.FindAction("Movement", throwIfNotFound: true);
         m_CamActionMap_Mouse = m_CamActionMap.FindAction("Mouse", throwIfNotFound: true);
+        // UIPanelClick
+        m_UIPanelClick = asset.FindActionMap("UIPanelClick", throwIfNotFound: true);
+        m_UIPanelClick_Pointer = m_UIPanelClick.FindAction("Pointer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -255,9 +286,59 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         }
     }
     public CamActionMapActions @CamActionMap => new CamActionMapActions(this);
+
+    // UIPanelClick
+    private readonly InputActionMap m_UIPanelClick;
+    private List<IUIPanelClickActions> m_UIPanelClickActionsCallbackInterfaces = new List<IUIPanelClickActions>();
+    private readonly InputAction m_UIPanelClick_Pointer;
+    public struct UIPanelClickActions
+    {
+        private @CustomInput m_Wrapper;
+        public UIPanelClickActions(@CustomInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pointer => m_Wrapper.m_UIPanelClick_Pointer;
+        public InputActionMap Get() { return m_Wrapper.m_UIPanelClick; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIPanelClickActions set) { return set.Get(); }
+        public void AddCallbacks(IUIPanelClickActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIPanelClickActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIPanelClickActionsCallbackInterfaces.Add(instance);
+            @Pointer.started += instance.OnPointer;
+            @Pointer.performed += instance.OnPointer;
+            @Pointer.canceled += instance.OnPointer;
+        }
+
+        private void UnregisterCallbacks(IUIPanelClickActions instance)
+        {
+            @Pointer.started -= instance.OnPointer;
+            @Pointer.performed -= instance.OnPointer;
+            @Pointer.canceled -= instance.OnPointer;
+        }
+
+        public void RemoveCallbacks(IUIPanelClickActions instance)
+        {
+            if (m_Wrapper.m_UIPanelClickActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIPanelClickActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIPanelClickActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIPanelClickActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIPanelClickActions @UIPanelClick => new UIPanelClickActions(this);
     public interface ICamActionMapActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+    }
+    public interface IUIPanelClickActions
+    {
+        void OnPointer(InputAction.CallbackContext context);
     }
 }

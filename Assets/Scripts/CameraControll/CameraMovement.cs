@@ -10,14 +10,12 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _moveVector = Vector3.zero;
     private Rigidbody _rb;
     private float _moveSpeed = 10f;
-
-    public float _sensitivity = 5.0f; // Скорость вращения камеры
+    [SerializeField]
+    public float _sensitivity = 70.0f; // Скорость вращения камеры
     private bool _isRotating = false; // Флаг, указывающий, включено ли вращение
     private Vector2 _mouseDelta; // Дельта позиции мыши
     public float _maxYAngle = 80.0f;  // Максимальный угол наклона вверх и вниз
-    private float rotationX = 0;
-
-    private Camera _camera;
+    
 
     private void Awake()
     {
@@ -81,15 +79,10 @@ public class CameraMovement : MonoBehaviour
         // Если включено вращение
         if (_isRotating)
         {
-
-            transform.Rotate(Vector3.up * _mouseDelta.x * _sensitivity);
-
-            // Вычисляем угол наклона камеры по вертикали
-            rotationX -= _mouseDelta.y * _sensitivity;
-            rotationX = Mathf.Clamp(rotationX, -_maxYAngle, _maxYAngle);
-
-            // Поворачиваем камеру по вертикали вокруг оси X
-            transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            Vector3 rotation = new(-_mouseDelta.y, _mouseDelta.x, 0);
+            rotation = transform.eulerAngles + _sensitivity * Time.deltaTime * rotation.normalized;
+            rotation.x = Mathf.Clamp(rotation.x, -_maxYAngle, _maxYAngle);
+            transform.rotation = Quaternion.Euler(rotation);
         }
     }
 }
