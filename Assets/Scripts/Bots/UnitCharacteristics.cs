@@ -24,28 +24,31 @@ public class UnitCharacteristics : MonoBehaviour
 
 
     public int UnitHealth
-    { get { return _unitHealth; } set { _unitHealth = value; } }
+    { get { return _unitHealth; } private set { _unitHealth = value; } }
+    public void SetUnitHealth(int value) => UnitHealth = value;
 
     public int DamageFastAttack
-    { get { return _damageFastAttack; } set { _damageFastAttack = value; } }
+    { get { return _damageFastAttack; } private set { _damageFastAttack = value; } }
 
     public int DamageStrongAttack
-    { get { return _damageStrongAttack; } set { _damageStrongAttack = value; } }
+    { get { return _damageStrongAttack; } private set { _damageStrongAttack = value; } }
 
     public int ActualDamage
-    { get { return _actualDamage; } set { _actualDamage = value; } }
+    { get { return _actualDamage; } private set { _actualDamage = value; } }
+    public void SetActualDamage(int value) => ActualDamage = value;
 
     public float UnitSpeed
-    { get { return _unitSpeed; } set { _unitSpeed = value; } }
+    { get { return _unitSpeed; }private set { _unitSpeed = value; } }
 
     public bool UnitDead
-    { get { return _unitDead; } set { _unitDead = value; } }
+    { get { return _unitDead; }private set { _unitDead = value; } }
+    public void SetUnitDead(bool value) => UnitDead = value;
 
     public int FastAttackChance
-    { get { return _fastAttackChance; } set { _fastAttackChance = value; } }
+    { get { return _fastAttackChance; }private set { _fastAttackChance = value; } }
 
     public float AttackCooldown
-    { get { return _attackCooldown; } set { _attackCooldown = value; } }
+    { get { return _attackCooldown; } }
 
     public TeamColor Color
     { get { return _teamColor; } }

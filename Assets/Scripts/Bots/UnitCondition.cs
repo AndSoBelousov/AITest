@@ -24,7 +24,7 @@ public class UnitCondition : BotNavigation
     {
         if (_characteristics != null && _characteristics.UnitHealth <= 0)
         {
-            _characteristics.UnitDead = true;
+            _characteristics.SetUnitDead(true);
             
             _animator.SetTrigger("Die");
         }

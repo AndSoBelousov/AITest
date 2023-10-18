@@ -18,7 +18,7 @@ public class SwordBlade : MonoBehaviour
             UnitCharacteristics characteristics = other.GetComponent<UnitCharacteristics>();
             if (characteristics != null)
             {
-                characteristics.UnitHealth -= _unitChar.ActualDamage;
+                characteristics.SetUnitHealth(_unitChar.UnitHealth -_unitChar.ActualDamage) ;
             }
             Debug.Log("Нанесен урон");
         }

@@ -24,7 +24,10 @@ public class BotNavigation : MonoBehaviour
 
 
         _agent.SetDestination(_initialTarget.position);
-        UnitSpeed(_characteristics.UnitSpeed);
+        if (_characteristics != null)
+        {
+            UnitSpeed(_characteristics.UnitSpeed);
+        }
     }
     private void LateUpdate()
     {

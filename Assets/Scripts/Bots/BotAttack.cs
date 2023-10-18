@@ -49,12 +49,12 @@ public class BotAttack : BotNavigation
         if (random <= _char.FastAttackChance)
         {
             _animator.SetTrigger(_fast);
-            _char.ActualDamage = _char.DamageFastAttack;
+            _char.SetActualDamage(_char.DamageFastAttack);
         }
         else
         {
             _animator.SetTrigger(_strong);
-            _char.ActualDamage = _char.DamageStrongAttack;
+            _char.SetActualDamage(_char.DamageStrongAttack);
         }
     }
 
