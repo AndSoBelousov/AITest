@@ -44,18 +44,34 @@ public class BotAttack : BotNavigation
    
     private void QuickAttackChance() // ¬ыбираем тип атаки на основе веро€тности
     {
-        int random = Random.Range(0, 100);
+        int randomFastOrStrong = Random.Range(0, 100);
         
-        if (random <= _char.FastAttackChance)
+        if (randomFastOrStrong <= _char.FastAttackChance)
         {
             _animator.SetTrigger(_fast);
-            _char.SetActualDamage(_char.DamageFastAttack);
+            _char.SetActualDamage(_char.DamageFastAttack);            
         }
         else
         {
             _animator.SetTrigger(_strong);
             _char.SetActualDamage(_char.DamageStrongAttack);
         }
+
+        ChanceCritOrMiss();
+    }
+    private void ChanceCritOrMiss()
+    {
+        int randomCrite = Random.Range(0, 100);
+        int randomMiss = Random.Range(0, 100);
+        if (randomCrite <= _char.ChanceOfCrite)
+        {
+            _char.SetActualDamage(_char.ActualDamage * 2);
+        }
+        if (randomMiss <= _char.ChanceOfMiss)
+        {
+            _char.SetActualDamage(0);
+        }
+
     }
 
     private void EnableSwordCollider(int isActivity)
