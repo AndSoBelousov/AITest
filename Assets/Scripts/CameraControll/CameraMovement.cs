@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,7 +12,7 @@ public class CameraMovement : MonoBehaviour
     private bool _isRotating = false; // Флаг, указывающий, включено ли вращение
     private Vector2 _mouseDelta; // Дельта позиции мыши
     public float _maxYAngle = 80.0f;  // Максимальный угол наклона вверх и вниз
-    
+    private Vector3 _rotation;
 
     private void Awake()
     {
@@ -79,10 +76,10 @@ public class CameraMovement : MonoBehaviour
         // Если включено вращение
         if (_isRotating)
         {
-            Vector3 rotation = new(-_mouseDelta.y, _mouseDelta.x, 0);
-            rotation = transform.eulerAngles + _sensitivity * Time.deltaTime * rotation.normalized;
-            rotation.x = Mathf.Clamp(rotation.x, -_maxYAngle, _maxYAngle);
-            transform.rotation = Quaternion.Euler(rotation);
+            Vector3 delta = new Vector3(-_mouseDelta.y, _mouseDelta.x, 0f) * _sensitivity * Time.deltaTime;
+            _rotation += delta;
+            _rotation.x = Mathf.Clamp(_rotation.x, -_maxYAngle, _maxYAngle);
+            transform.rotation = Quaternion.Euler(_rotation);
         }
     }
 }
